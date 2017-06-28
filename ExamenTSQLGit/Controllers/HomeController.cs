@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ExamenTSQLGit.Models;
 
 namespace ExamenTSQLGit.Controllers
 {
@@ -30,6 +31,18 @@ namespace ExamenTSQLGit.Controllers
         public IActionResult Error()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult SaveExam([FromBody] Examen exam) {
+            if (exam != null)
+            {
+                return Json("Success");
+            }
+            else
+            {
+                return Json("An Error Has occoured");
+            }
         }
     }
 }
