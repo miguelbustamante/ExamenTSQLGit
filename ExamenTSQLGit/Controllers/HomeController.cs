@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ExamenTSQLGit.Models;
+using Newtonsoft.Json;
 
 namespace ExamenTSQLGit.Controllers
 {
@@ -35,9 +36,26 @@ namespace ExamenTSQLGit.Controllers
 
         [HttpPost]
         public IActionResult SaveExam([FromBody] Examen exam) {
+
+            
+
             if (exam != null)
             {
-                return Json("Success");
+                try
+                {
+                    var logPath = exam.NombreEvaluado + DateTime.Now.ToString("yyyyMMdd");
+                    var logFile = System.IO.File.Create(logPath + ".json");
+                    var logWriter = new System.IO.StreamWriter(logFile);
+                    JsonSerializer serializer = new JsonSerializer();
+                    serializer.Serialize(logWriter, exam);
+                    logWriter.Dispose();
+                    return Json("Examen guardado exitosamente, !Suerte¡");
+                }
+                catch (Exception ex)
+                {
+
+                    return Json("An error has ocured " + ex.Message);
+                }
             }
             else
             {

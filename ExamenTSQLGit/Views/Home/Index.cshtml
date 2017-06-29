@@ -64,25 +64,25 @@
                 </h4>
                 <div class="input-group">
                     <span class="input-group-addon">
-                        <input type="radio" name="q2">
+                        <input type="radio" name="q2" value="SELECT * FROM exp_expedientes WHERE primer_nombre LIKE 'Ju$'">
                     </span>
                     <input type="text" class="form-control" value="SELECT * FROM exp_expedientes WHERE primer_nombre LIKE 'Ju$'" style="min-width:100%">
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon">
-                        <input type="radio" name="q2">
+                        <input type="radio" name="q2" value="SELECT * FROM exp_expedientes WHERE primer_nombre LIKE 'Ju&'">
                     </span>
                     <input type="text" class="form-control" value="SELECT * FROM exp_expedientes WHERE primer_nombre LIKE 'Ju&'" style="min-width:100%">
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon">
-                        <input type="radio" name="q2">
+                        <input type="radio" name="q2" value="SELECT * FROM exp_expedientes WHERE primer_nombre LIKE 'Ju%'">
                     </span>
                     <input type="text" class="form-control" value="SELECT * FROM exp_expedientes WHERE primer_nombre LIKE 'Ju%'" style="min-width:100%">
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon">
-                        <input type="radio" name="q2">
+                        <input type="radio" name="q2" value="SELECT * FROM exp_expedientes WHERE primer_nombre LIKE 'Ju*'">
                     </span>
                     <input type="text" class="form-control" value="SELECT * FROM exp_expedientes WHERE primer_nombre LIKE 'Ju*'" style="min-width:100%">
                 </div>
@@ -162,7 +162,7 @@
                     Obtener todos los empleados de tipo de empleado 2
                 </h4>
                 <p>Aquí se coloca la consulta realizada para cumplir con el requerimiento</p>
-                <textarea class="form-control" id="txtQ1" style="min-width: 100%; min-height:150px"></textarea>
+                <textarea class="form-control" id="txtPQ1" style="min-width: 100%; min-height:150px"></textarea>
 
             </li>
             <li class="list-group-item">
@@ -171,7 +171,7 @@
                 </h4>
 
                 <p>Aquí se coloca la consulta realizada para cumplir con el requerimiento</p>
-                <textarea class="form-control" id="txtQ2" style="min-width: 100%; min-height:150px"></textarea>
+                <textarea class="form-control" id="txtPQ2" style="min-width: 100%; min-height:150px"></textarea>
 
             </li>
             <li class="list-group-item">
@@ -183,7 +183,7 @@
                 <p>
                     Aqui se coloca todo lo escrito en el área de <strong>Schema Panel</strong>
                 </p>
-                <textarea class="form-control" id="txtQ3" style="min-width: 100%; min-height:500px"></textarea>
+                <textarea class="form-control" id="txtPQ3" style="min-width: 100%; min-height:500px"></textarea>
             </li>
         </ol>
     </div>
@@ -200,16 +200,46 @@
     $(function () {
         $('#click1').click(function (e) {
 
+
             var jsonObject = {
-                "NombreEvaluado": "Miguel",
+                "NombreEvaluado": $('#txtNombre').val(),
                 "Preguntas": [
                     {
-                        "Pregunta": "test",
-                        "Respuesta": "test"
+                        "Pregunta": "¿Cuál de las siguientes no es una función de agregación?",
+                        "Respuesta": $('input[name=q1]:checked').val()
+                    },
+                    {
+                        "Pregunta": "¿Como selecciono todas las filas de una tabla llamada exp_expedientes donde la columna primer_nombre empieze con 'Ju'?",
+                        "Respuesta": $('input[name=q2]:checked').val()
+                    },
+                    {
+                        "Pregunta": "Mencione dos tipos de Join y su función.",
+                        "Respuesta": $('#txtQ1').val()
+                    },
+                    {
+                        "Pregunta": "¿Cual es la estructura de una consulta t-sql con condiciones de filtrado, ordenamiento y agrupamiento?",
+                        "Respuesta": $('#txtQ2').val()
+                    },
+                    {
+                        "Pregunta": "¿Cual seria el resultado de la siguiente sentencia?",
+                        "Respuesta": $('#txtQ3').val()
+                    },
+                    {
+                        "Pregunta": "Obtener todos los empleados de tipo de empleado 2",
+                        "Respuesta": $('#txtPQ1').val()
+                    },
+                    {
+                        "Pregunta": "Actualizar los empleados tipo de empleado 1 a tipo de empleado 2 y los tipo de empleado 2 a tipo de empleado 3",
+                        "Respuesta": $('#txtPQ2').val()
+                    },
+                    {
+                        "Pregunta": "Crear una tabla tipo de trabajo y la relación entre la tabla empleados y tipo de trabajo tomando en cuenta que un empleado puede tener muchos tipos de trabajo (es necesaria otra tabla)",
+                        "Respuesta": $('#txtPQ3').val()
                     }
+                    
                 ]
             };
-
+    /*$('input[name=radioName]:checked', '#myForm').val()*/
             $.ajax({
                 url: "@Url.Action("SaveExam")",
                 type: "POST",
@@ -221,6 +251,8 @@
             },
                 success: function (response) {
                     alert(response);
+                    location.reload().delay(1500);
+
                 }
             });
 
