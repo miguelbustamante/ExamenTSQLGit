@@ -18,6 +18,7 @@
 </div>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="well">Teoria</div>
         <ol class="list-group">
             <li class="list-group-item">
 
@@ -111,6 +112,76 @@
                     Select * from empleados where código in (select * from centros_de_trabajo)
                 </p>
                     <textarea class="form-control" id="txtQ3" style="min-width: 100%"></textarea>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="well">Practivo</div>
+        <div class="well">
+           <p> <span style="font-weight:bolder">Instrucciones:</span> copiar el texto <blockquote>                                                                                                     CREATE TABLE [dbo].[tpe_tipos_empleado](
+                                                                                                     [tpe_codigo] [int] IDENTITY(1,1) NOT NULL,
+                                                                                                     [tpe_descripcion] [varchar](150) NULL,
+                                                                                                     CONSTRAINT [PK_tpe_tipos_empleado] PRIMARY KEY CLUSTERED
+                                                                                                     (
+                                                                                                     [tpe_codigo] ASC
+                                                                                                     )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+                                                                                                     ) ON [PRIMARY]
+
+                                                                                                     GO
+                                                                                                     CREATE TABLE [dbo].[emp_empleados](
+                                                                                                     [emp_codigo] [INT] IDENTITY(1,1) NOT NULL,
+                                                                                                     [emp_nombre] [VARCHAR](250) NULL,
+                                                                                                     [emp_codtpe] [INT] NULL,
+                                                                                                     CONSTRAINT [PK_emp_empleados] PRIMARY KEY CLUSTERED
+                                                                                                     (
+                                                                                                     [emp_codigo] ASC
+                                                                                                     )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+                                                                                                     ) ON [PRIMARY]
+
+                                                                                                     GO
+
+                                                                                                     ALTER TABLE [dbo].[emp_empleados]  WITH CHECK ADD  CONSTRAINT [FK_emp_empleados_tpe_tipos_empleado] FOREIGN KEY([emp_codtpe])
+                                                                                                     REFERENCES [dbo].[tpe_tipos_empleado] ([tpe_codigo])
+                                                                                                     GO
+
+                                                                                                     ALTER TABLE [dbo].[emp_empleados] CHECK CONSTRAINT [FK_emp_empleados_tpe_tipos_empleado]
+                                                                                                     GO
+                                                                                                     INSERT INTO dbo.tpe_tipos_empleado (tpe_descripcion) values ('Administrador'), ('Jefe'), ('Subjefe'), ('Operador')
+                                                                                                     INSERT INTO dbo.emp_empleados (emp_nombre, emp_codtpe) values ('Cristian Recinos', 2), ('Jorge Carbonel', 1), ('Miguel Bustamante', 2), ('Pedro Salazar', 4), ('Carlos Martinez', 3)</blockquote> en la página <a href="http://wwww.sqlfiddle.com">sqlfiddle.com</a> 
+        
+         en el área de <strong>Schema Panel</strong> luego presionar el bottón <strong>Build Schema</strong> para que se cree el schema, una vez creado el schema realize las consultas solicitadas en el area de la derecha y presiona el bottón <strong>Run SQL</strong> 
+            para ejecutar la consulta. </p>
+            <p>Para agregar tablas debe modificar el schema en el área de <strong>Schema Panel</strong> y presionar el botón <strong>Build Schema</strong> para regenerar el schema con las nuevas tablas.</p>
+        </div>
+        <ol class="list-group">
+            
+            <li class="list-group-item">
+                <h4>
+                    Obtener todos los empleados de tipo de empleado 2
+                </h4>
+                <textarea class="form-control" id="txtQ1" style="min-width: 100%; min-height:60px"></textarea>
+
+            </li>
+            <li class="list-group-item">
+                <h4>
+                    Actualizar los empleados tipo de empleado 1 a tipo de empleado 2 y los tipo de empleado 2 a tipo de empleado 3
+                </h4>
+
+                <textarea class="form-control" id="txtQ2" style="min-width: 100%; min-height:60px"></textarea>
+
+            </li>
+            <li class="list-group-item">
+
+
+                <h4>
+                    Crear una tabla tipo de trabajo y la relación entre la tabla empleados y tipo de trabajo tomando en cuenta que un empleado puede tener muchos tipos de trabajo (es necesaria otra tabla)
+                </h4>
+                <p>
+                    Aqui se coloca todo lo escrito en el área de <strong>Schema Panel</strong>
+                </p>
+                <textarea class="form-control" id="txtQ3" style="min-width: 100%; min-height:100px"></textarea>
             </li>
         </ol>
     </div>
